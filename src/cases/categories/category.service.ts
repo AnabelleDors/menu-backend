@@ -1,5 +1,5 @@
 import { Repository } from "typeorm/browser/repository/Repository.js";
-import { Category } from "./category..entity"
+import { Category } from "./category.entity"
 import { InjectRepository } from "@nestjs/typeorm";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateCategoryDto } from "./dto/create-category";

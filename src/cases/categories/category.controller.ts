@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Patch, Post } from "@nestjs/common";
-import { Category } from "./category..entity";
+import { Category } from "./category.entity";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category";
 import { UpdateCategoryDto } from "./dto/update-category";

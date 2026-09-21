@@ -1,6 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { SpotModule } from './cases/spots/spot.module';
+import { ProductModule } from './cases/products/product.module';
+import { CategoryModule } from './cases/categories/category.module';
+import { OrdersModule } from './cases/orders/orders.module';
+import { GuestCheckModule } from './cases/guest-check/guest-check.module';
 
 @Module({
   imports: [
@@ -32,9 +37,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
           url: databaseURL,
           schema: databaseSCHEMA,
           autoLoadEntities: true,
+          synchronize: true,
+          ssl: false,
         };
       },
     }),
+    CategoryModule,
+    ProductModule,
+    SpotModule,
+    GuestCheckModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [],

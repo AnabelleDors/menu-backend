@@ -1,11 +1,11 @@
-import { Column,Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('category')
 export class Category {
-   @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ length: 60, nullable: false })
+    @Column({ type: 'varchar', length: 60 })
     name: string;
 
     @Column({ type: 'boolean', default: true })

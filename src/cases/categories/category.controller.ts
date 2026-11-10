@@ -6,36 +6,49 @@ import { UpdateCategoryDto } from "./dto/update-category";
 
 @Controller('categories')
 export class CategoryController {
-    
+
     constructor(
-        private readonly service: CategoryService
+        private readonly categoryService: CategoryService
     ){}
-    
+
     @Get()
-    findAll() : Promise<Category[]> {
-        return this.service.findAll();
+    findAll(): Promise<Category[]> {
+        return this.categoryService.findAll();
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseUUIDPipe) id: string) : Promise<Category> {
-        return this.service.findOne(id);
+    findOne(
+        @Param('id', ParseUUIDPipe)
+        id: string
+    ): Promise<Category> {
+        return this.categoryService.findOne(id);
     }
 
     @Post()
-    create(@Body()dto: CreateCategoryDto) : Promise<Category> {
-        return this.service.create(dto);
+    create(
+        @Body()
+        dto: CreateCategoryDto
+    ): Promise<Category> {
+        return this.categoryService.create(dto);
     }
 
     @Patch(':id')
-    update(@Param('id', ParseUUIDPipe) id: string, @Body() dto: UpdateCategoryDto): Promise<Category> {
-        return this.service.update(id, dto);
-       
+    update(
+        @Param('id', ParseUUIDPipe)
+        id: string,
+        @Body()
+        dto: UpdateCategoryDto
+    ): Promise<Category> {
+        return this.categoryService.update(id, dto);
     }
 
     @Delete(':id')
     @HttpCode(HttpStatus.NO_CONTENT)
-    remove(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
-        return this.service.remove(id);
+    remove(
+        @Param('id', ParseUUIDPipe)
+        id: string
+    ): Promise<void> {
+        return this.categoryService.remove(id);
     }
 
 }

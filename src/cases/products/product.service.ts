@@ -17,8 +17,9 @@ export class ProductService {
         private readonly productRepository: Repository<Product>
     ) {}
 
-    findAll(): Promise<Product[]> {
+    findAll(categoryId?: string): Promise<Product[]> {
         return this.productRepository.find({
+            where: categoryId ? { category: { id: categoryId } } : {},
             order: {name: 'ASC'},
             relations: { category: true }
         });
@@ -30,7 +31,7 @@ export class ProductService {
             relations: { category: true }});
 
         if (!product) {
-            throw new NotFoundException('ID do produto ${id} não encontrado');
+            throw new NotFoundException(`ID do produto ${id} não encontrado`);
         }
 
         return product;
@@ -45,7 +46,7 @@ export class ProductService {
             description: dto.description,
             price: dto.price,
             picture: dto.picture_url,
-            active: true,
+            active: dto.active ?? true,
             category
         });
         return this.productRepository.save(product);
@@ -74,7 +75,15 @@ export class ProductService {
             product.active = dto.active;
         }
 
-        if (dto.category_id !== undefined) {
+        if (dto.vegetarian !== undefined) {
+            product.vegetarian = dto.vegetarian;
+        }
+
+        if (dto.isNew !== undefined) {
+            product.isNew = dto.isNew;
+        }
+
+        if (dto.category_id !== undefined && dto.category_id !== product.category?.id) {
             product.category = dto.category_id ? await this.getActiveCategory(dto.category_id) : null;
         }
 

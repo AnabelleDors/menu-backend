@@ -8,7 +8,7 @@ export class UpdateProductDto {
 
     @IsOptional()
     @IsString()
-    description?: string
+    description?: string | null
 
     @IsOptional()
     @IsNumber( { maxDecimalPlaces: 2 } )
@@ -24,6 +24,14 @@ export class UpdateProductDto {
     active?: boolean
 
     @IsOptional()
+    @IsBoolean()
+    vegetarian?: boolean
+
+    @IsOptional()
+    @IsBoolean()
+    isNew?: boolean
+
+    @IsOptional()
     @IsUrl({ require_protocol: true })
-    picture_url?: string
+    picture_url?: string | null
 }

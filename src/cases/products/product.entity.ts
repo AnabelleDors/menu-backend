@@ -13,13 +13,19 @@ export class Product {
     active: boolean;
 
     @Column({ type: 'text', nullable: true })
-    description?: string;
+    description?: string | null;
 
     @Column({ type: 'numeric', precision: 10, scale: 2 })
     price: number;
 
     @Column({ type: 'text', nullable: true })
-    picture?: string;
+    picture?: string | null;
+
+    @Column({ type: 'boolean', default: false })
+    vegetarian: boolean;
+
+    @Column({ name: 'is_new', type: 'boolean', default: false })
+    isNew: boolean;
 
     @ManyToOne(() => Category, { nullable: true })
     @JoinColumn({ name: 'category_id' })

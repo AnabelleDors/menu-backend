@@ -8,7 +8,7 @@ export class CreateProductDto {
 
     @IsOptional()
     @IsString()
-    description?: string
+    description?: string | null
 
     @IsNumber( { maxDecimalPlaces: 2 } )
     @Min(0)
@@ -23,7 +23,15 @@ export class CreateProductDto {
     active?: boolean
 
     @IsOptional()
+    @IsBoolean()
+    vegetarian?: boolean
+
+    @IsOptional()
+    @IsBoolean()
+    isNew?: boolean
+
+    @IsOptional()
     @IsUrl({ require_protocol: true })
-    picture_url?: string
+    picture_url?: string | null
     
 }

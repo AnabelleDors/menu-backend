@@ -8,6 +8,11 @@ export class UpdateCategoryDto {
     name?: string
 
     @IsOptional()
+    @IsString()
+    @IsNotEmpty()
+    icon?: string
+    
+    @IsOptional()
     @IsBoolean()
     active?: boolean;
 }

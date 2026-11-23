@@ -40,7 +40,7 @@ export class GuestCheckService {
             const guestCheck = await this.guestCheckRepository.findOneBy({ id });
     
             if (!guestCheck) {
-                throw new NotFoundException('ID da comanda ${id} não encontrado');
+                throw new NotFoundException(`ID da comanda ${id} não encontrado`);
             }
     
             return guestCheck;

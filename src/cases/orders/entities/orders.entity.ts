@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { GuestCheck } from '../../guest-check/guest-check.entity';
 import { OrderItem } from './order-item.entity';
 
@@ -9,6 +9,7 @@ export enum OrderStatus {
   DELIVERY = 'DELIVERY',
 }
 
+@Entity('order')
 export class Order {
   @PrimaryGeneratedColumn('uuid')
   id: string;

@@ -36,7 +36,9 @@ import { SpotModule } from './cases/spots/spot.module';
           schema: databaseSCHEMA,
           autoLoadEntities: true,
           synchronize: true,
-          ssl: false,
+          ssl: {
+            rejectUnauthorized: false,
+          },
         };
       },
     }),

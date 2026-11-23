@@ -6,4 +6,8 @@ export class CreateCategoryDto {
     @IsNotEmpty()
     @MaxLength(60)
     name?: string
+
+    @IsOptional()
+    @IsNotEmpty()
+    icon?: string
 }

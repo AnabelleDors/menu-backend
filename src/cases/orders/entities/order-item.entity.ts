@@ -8,7 +8,7 @@ export class OrderItem {
   id: string;
 
   @ManyToOne(() => Order, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'Order_id' })
+  @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @ManyToOne(() => Product, { nullable: false })
@@ -20,9 +20,6 @@ export class OrderItem {
 
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   price: number;
-
-  @Column({ type: 'numeric', precision: 10, scale: 2 })
-  total: number;
 
   @Column({ type: 'numeric', precision: 10, scale: 2 })
   subtotal: number;

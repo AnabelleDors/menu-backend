@@ -8,6 +8,9 @@ export class Category {
     @Column({ type: 'varchar', length: 60 })
     name: string;
 
+    @Column({ type: 'text', nullable: true })
+    icon: string;
+
     @Column({ type: 'boolean', default: true })
     active: boolean;
 }

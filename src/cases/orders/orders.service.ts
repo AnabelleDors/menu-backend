@@ -28,6 +28,7 @@ export class OrderService {
     return this.orderItemRepository.create({
       product,
       quantity: itemDto.quantity,
+      price: Number(product.price),
       subtotal,
     });
   }
@@ -65,7 +66,7 @@ export class OrderService {
     const order = await this.orderRepository.findOneBy({ id });
 
     if (!order) {
-      throw new NotFoundException('ID do pedido ${id} não encontrado');
+      throw new NotFoundException(`ID do pedido ${id} não encontrado`);
     }
 
     return order;

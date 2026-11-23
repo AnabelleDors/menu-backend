@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseEnumPipe, ParseUUIDPipe, Patch, Post, Query } from "@nestjs/common";
 import { CreateGuestCheckDto } from "./dto/create-guest-check";
-import { GuestCheck } from "./guest-check.entity";
+import { GuestCheck, GuestCheckStatus } from "./guest-check.entity";
 import { GuestCheckService } from "./guest-check.service";
 
 @Controller('guest-check')
@@ -9,6 +9,14 @@ export class GuestCheckController {
     constructor(
         private readonly guestCheckService: GuestCheckService
     ){}
+
+    @Get()
+    findAll(
+        @Query('status', new ParseEnumPipe(GuestCheckStatus, { optional: true }))
+        status?: GuestCheckStatus,
+    ) {
+        return this.guestCheckService.findAll(status);
+    }
 
     @Get(':id')
     findOne(

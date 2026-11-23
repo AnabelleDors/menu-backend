@@ -36,8 +36,24 @@ export class GuestCheckService {
         return this.create({ spotId });
     }
 
+    async findAll(status?: GuestCheckStatus) {
+        const guestChecks = await this.guestCheckRepository.find({
+            where: status ? { status } : {},
+            order: { createdAt: 'ASC' },
+            relations: { spot: true, orders: true }
+        });
+
+        return guestChecks.map(({ orders, ...guestCheck }) => ({
+            ...guestCheck,
+            total: orders.reduce((sum, order) => sum + Number(order.total), 0)
+        }));
+    }
+
     async findOne(id: string): Promise<GuestCheck> {
-            const guestCheck = await this.guestCheckRepository.findOneBy({ id });
+            const guestCheck = await this.guestCheckRepository.findOne({
+                where: { id },
+                relations: { spot: true }
+            });
     
             if (!guestCheck) {
                 throw new NotFoundException(`ID da comanda ${id} não encontrado`);

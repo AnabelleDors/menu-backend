@@ -56,14 +56,19 @@ export class OrderService {
     return this.orderRepository.save(order);
   }
 
-  findAll(): Promise<Order[]> {
+  findAll(guestCheckId?: string): Promise<Order[]> {
     return this.orderRepository.find({
-      order: { createdAt: 'ASC' }
+      where: guestCheckId ? { guestCheck: { id: guestCheckId } } : {},
+      order: { createdAt: 'ASC' },
+      relations: { items: { product: true }, guestCheck: { spot: true } }
     });
   }
 
   async findOne(id: string): Promise<Order> {
-    const order = await this.orderRepository.findOneBy({ id });
+    const order = await this.orderRepository.findOne({
+      where: { id },
+      relations: { items: { product: true }, guestCheck: { spot: true } }
+    });
 
     if (!order) {
       throw new NotFoundException(`ID do pedido ${id} não encontrado`);

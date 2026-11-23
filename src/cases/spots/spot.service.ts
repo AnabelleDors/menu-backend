@@ -23,7 +23,7 @@ export class SpotService {
         const spot = await this.spotRepository.findOneBy({ id });
 
         if (!spot) {
-            throw new NotFoundException('ID do local ${id} não encontrado');
+            throw new NotFoundException(`ID do local ${id} não encontrado`);
         }
 
         return spot;
@@ -33,7 +33,7 @@ export class SpotService {
         const spot = this.spotRepository.create({
             ...dto,
             name: dto.name,
-            active: true
+            active: dto.active ?? true
         });
         return this.spotRepository.save(spot);
     }

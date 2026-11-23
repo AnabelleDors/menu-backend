@@ -1,4 +1,5 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Patch, Post, Query } from "@nestjs/common";
+import { Body, Controller, Get, Param, ParseEnumPipe, ParseUUIDPipe, Patch, Post, Query } from "@nestjs/common";
+import { GuestCheckStatus } from "../guest-check/guest-check.entity";
 import { CreateOrderDto } from "./dto/create-orders";
 import { UpdateOrderStatusDto } from "./dto/update-order-status";
 import { Order } from "./entities/orders.entity";
@@ -22,9 +23,11 @@ export class OrderController {
     @Get()
     findAll(
         @Query('guestCheckId', new ParseUUIDPipe({ optional: true }))
-        guestCheckId?: string
+        guestCheckId?: string,
+        @Query('guestCheckStatus', new ParseEnumPipe(GuestCheckStatus, { optional: true }))
+        guestCheckStatus?: GuestCheckStatus
     ): Promise<Order[]> {
-        return this.orderService.findAll(guestCheckId);
+        return this.orderService.findAll(guestCheckId, guestCheckStatus);
     }
     
     @Get(':id')

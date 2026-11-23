@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOptionsWhere, Repository } from 'typeorm';
+import { GuestCheck, GuestCheckStatus } from '../guest-check/guest-check.entity';
 import { GuestCheckService } from '../guest-check/guest-check.service';
 import { ProductService } from '../products/product.service';
 import { CreateOrderDto, CreateOrderItemDto } from './dto/create-orders';
@@ -56,9 +57,19 @@ export class OrderService {
     return this.orderRepository.save(order);
   }
 
-  findAll(guestCheckId?: string): Promise<Order[]> {
+  findAll(guestCheckId?: string, guestCheckStatus?: GuestCheckStatus): Promise<Order[]> {
+    const guestCheck: FindOptionsWhere<GuestCheck> = {};
+
+    if (guestCheckId) {
+      guestCheck.id = guestCheckId;
+    }
+
+    if (guestCheckStatus) {
+      guestCheck.status = guestCheckStatus;
+    }
+
     return this.orderRepository.find({
-      where: guestCheckId ? { guestCheck: { id: guestCheckId } } : {},
+      where: { guestCheck },
       order: { createdAt: 'ASC' },
       relations: { items: { product: true }, guestCheck: { spot: true } }
     });

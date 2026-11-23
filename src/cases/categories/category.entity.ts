@@ -9,7 +9,10 @@ export class Category {
     name: string;
 
     @Column({ type: 'text', nullable: true })
-    icon: string;
+    icon: string | null;
+
+    @Column({ name: 'display_order', type: 'integer', default: 0 })
+    displayOrder: number;
 
     @Column({ type: 'boolean', default: true })
     active: boolean;

@@ -15,7 +15,7 @@ export class CategoryService {
 
     findAll(): Promise<Category[]> {
         return this.categoryRepository.find({
-            order: {name: 'ASC'}
+            order: {displayOrder: 'ASC', name: 'ASC'}
         });
     }
 
@@ -23,7 +23,7 @@ export class CategoryService {
         const category = await this.categoryRepository.findOneBy({ id });
 
         if (!category) {
-            throw new NotFoundException('ID da categoria ${id} não encontrado');
+            throw new NotFoundException(`ID da categoria ${id} não encontrado`);
         }
 
         return category;
@@ -33,7 +33,7 @@ export class CategoryService {
         const category = this.categoryRepository.create({
             ...dto,
             name: dto.name,
-            active: true
+            active: dto.active ?? true
         });
         return this.categoryRepository.save(category);
     }
@@ -43,6 +43,14 @@ export class CategoryService {
 
         if (dto.name !== undefined) {
             category.name = dto.name;
+        }
+
+        if (dto.icon !== undefined) {
+            category.icon = dto.icon;
+        }
+
+        if (dto.displayOrder !== undefined) {
+            category.displayOrder = dto.displayOrder;
         }
 
         if (dto.active !== undefined) {
